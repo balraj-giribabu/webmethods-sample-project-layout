@@ -4,7 +4,7 @@ pipeline {
         stage('Change Properties'){
             steps {
                 script{
-                    String filenew = readFile('C:/SoftwareAG/CI_script/master_build_Reference/build-dpl.properties').replaceAll('package-to-deploy','${env.PACKAGE_TO_DEPLOY')
+                    String filenew = readFile('C:/SoftwareAG/CI_script/master_build_Reference/build-dpl.properties').replaceAll('package-to-deploy',"${env.PACKAGE_TO_DEPLOY}")
                     writeFile file:'C:/SoftwareAG/CI_script/master_build_Reference/build.properties', text: filenew
                 }
             }
