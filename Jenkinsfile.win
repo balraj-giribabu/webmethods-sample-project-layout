@@ -22,7 +22,8 @@ pipeline {
         stage('Removing Property File'){
             steps{
                   bat '''
-                          del C:/SoftwareAG/CI_script/master_build_Reference/build.properties
+                          cd C:/SoftwareAG/CI_script/master_build_Reference/
+                          del build.properties
                       '''
                   }
             }
