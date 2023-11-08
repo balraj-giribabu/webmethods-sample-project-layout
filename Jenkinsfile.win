@@ -4,8 +4,10 @@ pipeline {
         stage('Initial Setup'){
             steps {
                 bat '''
-                       mkdir ./assets/IS/Packages/packages-to-deploy
-                       xcopy  ./assets/IS/Packages/${env.PACKAGE-TO-DEPLOY} ./assets/IS/Packages/packages-to-deploy/  /e /i
+                       cd assets/IS/Packages/
+                       mkdir packages-to-deploy
+                       cd ../../../../
+                       xcopy assets/IS/Packages/${env.PACKAGE-TO-DEPLOY} assets/IS/Packages/packages-to-deploy/  /e /i
                     '''
             }
         }
