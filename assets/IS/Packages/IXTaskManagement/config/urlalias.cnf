@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <record name="taskmanagement/updateTask" javaclass="com.wm.util.Values">
+    <value name="urlPath">restv2/IXTaskManagement.ws.provider.rs:updateTask</value>
+    <record name="portMap" javaclass="com.wm.util.Values">
+    </record>
+  </record>
+  <record name="taskmanagement/taskaction" javaclass="com.wm.util.Values">
+    <value name="urlPath">restv2/IXTaskManagement.ws:task</value>
+    <record name="portMap" javaclass="com.wm.util.Values">
+    </record>
+  </record>
+</Values>
