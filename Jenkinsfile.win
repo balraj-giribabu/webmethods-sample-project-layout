@@ -7,15 +7,12 @@ pipeline {
                        cd assets/IS/Packages/
                        rmdir /s /Q packages-to-deploy
                        mkdir packages-to-deploy
+                       cd ../../../
+                       xcopy /e /i "assets/IS/Package/${env.PACKAGE-TO-DEPLOY}" "assets/IS/Packages/packages-to-deploy/${env.PACKAGE-TO-DEPLOY}"
                     '''
                  }
         }
 
-        stage("Copying Packages"){
-            steps{
-                  bat "xcopy /e /i ${env.WORKSPACE}/${env.JOB_NAME}/assets/IS/Package/${env.PACKAGE-TO-DEPLOY} ${env.WORKSPACE}/${env.JOB_NAME}/assets/IS/Packages/packages-to-deploy/${env.PACKAGE-TO-DEPLOY}"
-            }
-        }
         stage('Build'){
             steps {
                 bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
