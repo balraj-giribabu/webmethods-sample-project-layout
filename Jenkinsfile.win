@@ -5,6 +5,7 @@ pipeline {
             steps {
                 bat '''
                        cd assets/IS/Packages/
+                       rmdir packages-to-deploy
                        mkdir packages-to-deploy
                        cd ../../../
                        xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY1%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY1%"
