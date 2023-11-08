@@ -13,7 +13,7 @@ pipeline {
 
         stage("Copying Packages"){
             steps{
-                  bat("xcopy /e /i ${WORKSPACE}/${JOB_NAME}/assets/IS/Package/${env.PACKAGE-TO-DEPLOY} ${WORKSPACE}/${JOB_NAME}/assets/IS/Packages/packages-to-deploy/${env.PACKAGE-TO-DEPLOY}")
+                  bat("xcopy /e /i ${env.WORKSPACE}/${env.JOB_NAME}/assets/IS/Package/${env.PACKAGE-TO-DEPLOY} ${env.WORKSPACE}/${env.JOB_NAME}/assets/IS/Packages/packages-to-deploy/${env.PACKAGE-TO-DEPLOY}")
             }
         }
         stage('Build'){
