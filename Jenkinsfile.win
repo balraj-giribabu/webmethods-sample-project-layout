@@ -7,9 +7,14 @@ pipeline {
                        cd assets/IS/Packages/
                        rmdir /s /Q packages-to-deploy
                        mkdir packages-to-deploy
-                       cd ../../../../
-                       xcopy assets/IS/Packages/${env.PACKAGE-TO-DEPLOY} assets/IS/Packages/packages-to-deploy/
+                       xcopy ${env.PACKAGE-TO-DEPLOY} assets/IS/Packages/packages-to-deploy/
                     '''
+                 }
+        }
+
+        stage("Copying Packages"){
+            steps{
+                  bat("xcopy /e /i ${WORKSPACE}/${JOB_NAME}/assets/IS/Package/${env.PACKAGE-TO-DEPLOY} ${WORKSPACE}/${JOB_NAME}/assets/IS/Packages/packages-to-deploy/${env.PACKAGE-TO-DEPLOY}")
             }
         }
         stage('Build'){
