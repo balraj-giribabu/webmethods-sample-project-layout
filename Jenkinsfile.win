@@ -11,7 +11,7 @@ pipeline {
                        dir
                        echo '%env.PACKAGE-TO-DEPLOY%'
                        echo 'package is %PACKAGE-TO-DEPLOY%'
-                       xcopy /e /i "assets/IS/Package/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
+                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
                     '''
                  }
         }
