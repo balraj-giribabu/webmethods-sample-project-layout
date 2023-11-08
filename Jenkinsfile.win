@@ -9,6 +9,8 @@ pipeline {
                        mkdir packages-to-deploy
                        cd ../../../
                        dir
+                       echo ${PACKAGE-TO-DEPLOY}
+                       echo "package is ${env.PACKAGE-TO-DEPLOY}"
                        xcopy /e /i "assets/IS/Package/${PACKAGE-TO-DEPLOY}" "assets/IS/Packages/packages-to-deploy/${PACKAGE-TO-DEPLOY}"
                     '''
                  }
