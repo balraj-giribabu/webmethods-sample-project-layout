@@ -5,12 +5,8 @@ pipeline {
             steps {
                 bat '''
                        cd assets/IS/Packages/
-                       rmdir /s /Q packages-to-deploy
                        mkdir packages-to-deploy
                        cd ../../../
-                       dir
-                       echo '%env.PACKAGE-TO-DEPLOY%'
-                       echo 'package is %PACKAGE-TO-DEPLOY%'
                        xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
                     '''
                  }
@@ -29,7 +25,8 @@ pipeline {
         stage('Removing Property File'){
             steps{
                   bat '''
-                        rmdir /s /Q ./assets/IS/Packages/packages-to-deploy
+                        cd assets/IS/Packages/
+                        rmdir /s /Q packages-to-deploy
                       '''
                   }
             }
