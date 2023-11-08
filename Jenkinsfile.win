@@ -7,7 +7,8 @@ pipeline {
                        cd assets/IS/Packages/
                        mkdir packages-to-deploy
                        cd ../../../
-                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
+                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY1%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY1%"
+                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY2%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY2%
                     '''
                  }
         }
