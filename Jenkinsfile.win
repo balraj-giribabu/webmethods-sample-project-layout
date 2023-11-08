@@ -7,7 +7,6 @@ pipeline {
                        cd assets/IS/Packages/
                        rmdir /s /Q packages-to-deploy
                        mkdir packages-to-deploy
-                       xcopy ${env.PACKAGE-TO-DEPLOY} assets/IS/Packages/packages-to-deploy/
                     '''
                  }
         }
