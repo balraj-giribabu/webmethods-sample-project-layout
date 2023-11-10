@@ -11,8 +11,10 @@ pipeline{
                       def Packages = Packages_Names.split(',')
                       for (item in Packages){
                             println item
-            }
-        }
+                     }
+                   }
+               }
+           }
         stage('Verifying Packages'){
             steps{
                 script{
