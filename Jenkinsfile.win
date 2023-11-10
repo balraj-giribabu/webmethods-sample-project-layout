@@ -1,36 +1,54 @@
-pipeline {
-    agent any 
-    stages {
-        stage('Initial Setup'){
-            steps {
-                bat '''
-                       cd assets/IS/Packages/
-                       rmdir packages-to-deploy
-                       mkdir packages-to-deploy
-                       cd ../../../
-                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
-                    '''
-                 }
-        }
-
-        stage('Build'){
-            steps {
-                bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
-            }
-        }
-        stage('Deploy') {
-            steps {
-		bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
-            }
-        }
-        stage('Removing Initial Setup'){
+pipeline{
+    agent any
+    environment {
+        Packages_Names = "$PACKAGES_NAME"
+    }
+    
+    stages{
+        stage('Printing Dir'){
             steps{
-                  bat '''
-                        cd assets/IS/Packages/
-                        rmdir /s /Q packages-to-deploy
-                      '''
-                  }
+                bat """ dir """
             }
- 	
+        }
+        stage('Verifying Packages'){
+            steps{
+                script{
+                if(Packages_Names=='*'){
+                    bat """ move project_all.properties project.properties """
+                    stage('Build All Packages'){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
+                    }
+                    
+                    stage('Deploy'){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
+                    }
+                } else{
+                        def Packages = Packages_Names.split(',')
+                        bat """ 
+                               move project_specific.properties project.properties
+                               cd assets/IS/Packages
+                               """
+                        if (fileExists('Packages_To_Deploy')){
+                            bat """ rmdir /s Packages_TO_Deploy /Q """
+                        }
+                        bat """ mkdir Packages_To_Deploy
+                                cd ../../../"""
+                        for (Pack in Packages){
+                            bat """
+                                xcopy assets\\IS\\Packages\\$Pack assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i
+                                """
+                        }
+                        stage('Build Verified Packages'){
+                            bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
+                        }
+                    
+                        stage('Deploy'){
+                            bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME}     -DprojectName=${env.JOB_NAME} deploy"
+                    }
+                }
+            }
+            }
+            
+        }
     }
 }
