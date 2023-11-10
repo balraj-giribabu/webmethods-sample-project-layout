@@ -31,7 +31,8 @@ pipeline{
                         if (fileExists('Packages_To_Deploy')){
                             bat """ rmdir /s Packages_TO_Deploy /Q """
                         }
-                        bat """ mkdir Packages_To_Deploy
+                        bat """ dir
+                                mkdir Packages_To_Deploy
                                 cd ../../../
                                 dir """
                         println "You are here"
