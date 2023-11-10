@@ -41,7 +41,7 @@ pipeline{
                             for (Pack in Packages){
                             println Pack
                             bat """
-                                xcopy assets\\IS\\Packages\\$Pack assets\\IS\\Packages\\Packages_To_Deploy\\$Pack  /e /i
+                                xcopy assets\\IS\\Packages\\%Pack% assets\\IS\\Packages\\Packages_To_Deploy\\%Pack%  /e /i
                                 """
                             }
                            }
