@@ -40,10 +40,10 @@ pipeline{
                            script{
                             def Packages = Packages_Names.split(',')
                             for (Pack in Packages){
-                            println Pack
-                            bat """
+                            println $Pack
+                            bat '''
                                 xcopy assets\\IS\\Packages\\$Pack assets\\IS\\Packages\\Packages_To_Deploy\\$Pack  /e /i
-                                """
+                                '''
                             }
                            }
                         }
