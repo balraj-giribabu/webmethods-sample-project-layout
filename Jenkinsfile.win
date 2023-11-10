@@ -9,7 +9,7 @@ pipeline{
             steps{
                 script{
                       def Packages = env.Packages_Names.tokenize(',')
-                      for (item in Packages){
+                      for (String item: Packages){
                             println item
                      }
                    }
@@ -44,7 +44,7 @@ pipeline{
                         stage('Copying Files'){
                            script{
                             def Packages = Packages_Names.tokenize(',')
-                            for (item in Packages){
+                            for (String item: Packages){
                                        println item
                                        bat """
                                                xcopy "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item"  /e /i
