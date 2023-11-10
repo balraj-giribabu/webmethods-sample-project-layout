@@ -32,7 +32,9 @@ pipeline{
                             bat """ rmdir /s Packages_TO_Deploy /Q """
                         }
                         bat """ mkdir Packages_To_Deploy
-                                cd ../../../"""
+                                cd ../../../
+                                dir """
+                        println "You are here"
                         for (Pack in Packages){
                             bat """
                                 xcopy assets\\IS\\Packages\\$Pack assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i
