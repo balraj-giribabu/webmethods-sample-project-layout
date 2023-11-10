@@ -27,6 +27,7 @@ pipeline{
                         bat """ 
                                move project_specific.properties project.properties
                                cd assets/IS/Packages
+                               dir
                                """
                         if (fileExists('Packages_To_Deploy')){
                             bat """ rmdir /s Packages_TO_Deploy /Q """
