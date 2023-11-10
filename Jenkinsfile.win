@@ -39,7 +39,7 @@ pipeline{
                         stage('Copying Files'){
                            script{
                             for (Pack in Packages){
-                            println $Pack
+                            println "$Pack"
                             bat """
                                 xcopy assets\\IS\\Packages\\$Pack assets\\IS\\Packages\\Packages_To_Deploy\\$Pack  /e /i
                                 """
