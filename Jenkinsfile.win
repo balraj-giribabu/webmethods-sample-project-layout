@@ -1,9 +1,5 @@
 pipeline{
     agent any
-    environment{
-          packages_names123 = "${env.PACKAGE-TO-DEPLOY}"
-          }
-
     stages{
 
     stage('Verifying Packages'){
