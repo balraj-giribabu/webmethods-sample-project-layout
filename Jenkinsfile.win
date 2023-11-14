@@ -1,36 +1,27 @@
-pipeline {
-    agent any 
-    stages {
-        stage('Initial Setup'){
-            steps {
-                bat '''
-                       cd assets/IS/Packages/
-                       rmdir packages-to-deploy
-                       mkdir packages-to-deploy
-                       cd ../../../
-                       xcopy /e /i "assets/IS/Packages/%PACKAGE-TO-DEPLOY%" "assets/IS/Packages/packages-to-deploy/%PACKAGE-TO-DEPLOY%"
-                    '''
-                 }
-        }
+pipeline{
+    agent any
+    environment{
+        packages_list_names = "${evn.PACKAGE_NAMES}
+    }
 
-        stage('Build'){
-            steps {
-                bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
-            }
-        }
-        stage('Deploy') {
-            steps {
-		bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
-            }
-        }
-        stage('Removing Initial Setup'){
+    stages{
+        stage('Verifying Packages'){
             steps{
-                  bat '''
-                        cd assets/IS/Packages/
-                        rmdir /s /Q packages-to-deploy
-                      '''
-                  }
+                if(packages_list=="*"){
+                    bat """move project_all.properties project.properties"""
+                    stage("Building Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
+                    }
+                    stage("Deploying Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
+                    }
+                }
+                else{
+                    for(item in packages_list_names){
+                        println item
+                    }
+                }
             }
- 	
+        }
     }
 }
