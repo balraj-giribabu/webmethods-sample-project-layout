@@ -2,11 +2,6 @@ pipeline{
     agent any
 
     stages{
-    stage('Checking variable'){
-           steps{
-                  echo "$packages_Names"
-                 }
-        }
 
     stage('Verifying Packages'){
             steps{
