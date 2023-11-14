@@ -4,7 +4,7 @@ pipeline{
         stage('Verifying Packages'){
             steps{
                 script{
-                    def packages_list = "${evn.PACKAGE_NAMES}"
+                    def packages_list = "${PACKAGE_NAMES}"
                     if(packages_list=="*"){
                     println "star matched so deploying all packages"
                     bat """ move project_all.properties project.properties """
