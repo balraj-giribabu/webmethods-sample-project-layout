@@ -1,13 +1,14 @@
 pipeline{
     agent any
     environment{
-        packages_list_names = "${evn.PACKAGE_NAMES}"
+        packages_list = "${evn.PACKAGE_NAMES}"
     }
 
     stages{
         stage('Verifying Packages'){
             steps{
-                if(packages_list=="*"){
+                script{
+                    if(packages_list=="*"){
                     bat """move project_all.properties project.properties"""
                     stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
@@ -15,12 +16,12 @@ pipeline{
                     stage("Deploying Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
                     }
-                }
-                else{
-                    for(item in packages_list_names){
+                   } else{
+                    for(item in packages_list){
                         println item
                     }
                 }
+                
             }
         }
     }
