@@ -9,7 +9,6 @@ pipeline{
             steps{
                 script{
                       def Packages = Packages_Names.split(',')
-                      println Packages
                       for (item in Packages){
                             println item
                      }
