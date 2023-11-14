@@ -8,7 +8,8 @@ pipeline{
         stage('Printing Dir'){
             steps{
                 script{
-                      def Packages = Packages_Names.split(',')
+                      println Packages_Names
+                      def Packages = env.Packages_Names.split(',')
                       for (item in Packages){
                             println item
                      }
