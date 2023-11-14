@@ -9,7 +9,8 @@ pipeline{
             steps{
                 script{
                     if(packages_list=="*"){
-                    bat """move project_all.properties project.properties"""
+                    println "star matched so deploying all packages"
+                    bat """ move project_all.properties project.properties """
                     stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
                     }
