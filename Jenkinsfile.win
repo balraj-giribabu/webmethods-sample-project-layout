@@ -8,8 +8,8 @@ pipeline{
         stage('Printing Dir'){
             steps{
                 script{
-                      def Packages = env.Packages_Names.tokenize(',')
-                      for (String item: Packages){
+                      def Packages = Packages_Names.tokenize(',')
+                      for (item in Packages){
                             println item
                      }
                    }
