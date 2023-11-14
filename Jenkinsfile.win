@@ -1,14 +1,14 @@
 pipeline{
     agent any
     environment {
-        Packages_Names = "$e{nv.PACKAGE-TO-DEPLOY}"
+        Packages_Names = "${env.PACKAGE-TO-DEPLOY}"
     }
     
     stages{
         stage('Printing Dir'){
             steps{
                 script{
-                      def Packages = Packages_Names.tokenize(',')
+                      def Packages = Packages_Names.split(',')
                       println Packages
                       for (item in Packages){
                             println item
