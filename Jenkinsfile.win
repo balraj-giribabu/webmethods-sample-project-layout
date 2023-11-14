@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    environment {
-        packages_Names = "${env.PACKAGE-TO-DEPLOY}"
-    }
 
     stages{
     stage('Checking variable'){
@@ -14,6 +11,7 @@ pipeline{
     stage('Verifying Packages'){
             steps{
                 script{
+                env.packages_Names = "${env.PACKAGE-TO-DEPLOY}"
                 if(packages_Names=='*'){
                     bat """ move project_all.properties project.properties """
                     stage('Build All Packages'){
