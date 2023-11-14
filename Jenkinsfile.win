@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
           packages_names = "${env.PACKAGE-TO-DEPLOY}"
+          }
 
     stages{
 
