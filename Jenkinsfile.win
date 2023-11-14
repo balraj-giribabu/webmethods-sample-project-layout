@@ -9,6 +9,7 @@ pipeline{
             steps{
                 script{
                       def Packages = Packages_Names.tokenize(',')
+                      println Packages
                       for (item in Packages){
                             println item
                      }
