@@ -1,13 +1,14 @@
 pipeline{
     agent any
+    environment{
+          packages_names = "${env.PACKAGE-TO-DEPLOY}"
 
     stages{
 
     stage('Verifying Packages'){
             steps{
                 script{
-                env.packages_Names = "${env.PACKAGE-TO-DEPLOY}"
-                if(packages_Names=='*'){
+                if(packages_names=='*'){
                     bat """ move project_all.properties project.properties """
                     stage('Build All Packages'){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
@@ -32,7 +33,7 @@ pipeline{
                         println "You are here"
                         stage('Copying Files'){
                            script{
-                            def Packages = packages_Names.split(',')
+                            def Packages = packages_names.split(',')
                             for (item in Packages){
                                        println item
                                        bat """
