@@ -9,6 +9,7 @@ pipeline{
     stage('Verifying Packages'){
             steps{
                 script{
+                packages_names123 = "${PACKAGE-TO-DEPLOY}"
                 if(packages_names123=='*'){
                     bat """ move project_all.properties project.properties """
                     stage('Build All Packages'){
