@@ -1,10 +1,11 @@
 pipeline{
     agent any
-    environment{
-        packages_names_list = "${env.PACKAGE-LIST}"
-    }
     stages{
         stage('Verifying Packages'){
+
+            environment{
+                 packages_names_list = "${env.PACKAGE-LIST}"
+              }
             steps{
                 script{
                     if(packages_names_list=="*"){
