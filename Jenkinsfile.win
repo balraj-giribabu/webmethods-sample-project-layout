@@ -8,8 +8,7 @@ pipeline{
 		stage("Creating Loop"){
 			steps{
 				script{
-					def packages_names = random_packages.split(',')
-					for (pack in packages_names){
+					for (pack in random_packages.split(',')){
 						println pack
 						bat """
 						dir
