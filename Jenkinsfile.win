@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        packages_names_list = "${env.PACKAGE-LIST}"
+        packages_names_list = '${env.PACKAGE-LIST}'
     }
     stages{
         stage('Verifying Packages'){
