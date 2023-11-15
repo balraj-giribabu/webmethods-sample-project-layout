@@ -1,47 +1,23 @@
 pipeline{
-    agent any
-    stages{
-        stage('Verifying Packages'){
-
-            environment{
-                 packages_names_list = "${PACKAGE-LIST}"
-              }
-            steps{
-                script{
-                    if(packages_names_list=="*"){
-                    bat """move project_all.properties project.properties"""
-                    stage("Building Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
-                    }
-                    stage("Deploying Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
-                    }
-                } else{
-                    if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
-                        bat """ cd assets/IS/Packages
-                        rmdir /s Packages_To_Deploy /Q """
-                    }
-                    bat """
-                    move project_specific.properties project.properties
-                    cd assets/IS/Packages
-                    mkdir Packages_To_Deploy
-                    cd ../../../
-                    """
-                    for(item in packages_names_list.split(',')){
-                        bat """ xcopy assets\\IS\\Packages\\$item assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i """
-                    }
-                    stage("Building Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} build"
-                    }
-                    stage("Deploying Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} deploy"
-                    }
-                    bat """ cd assets/IS/Packages
-                        rmdir /s Packages_To_Deploy /Q """
-                }
-                
-            }
-        }
-    }
-  }
+	agent any
+	environment{
+		packages_names_list = "${PACKAGE-LIST}"
+	}
+	
+	stages{
+		stage("Creating Loop"){
+			steps{
+				script{
+					packages_names = packages_names_list.split(',')
+					for (pack in packages_names){
+						println pack
+						bat """
+						dir
+						dir
+						"""
+					}
+				}
+			}
+		}
+	}
 }
