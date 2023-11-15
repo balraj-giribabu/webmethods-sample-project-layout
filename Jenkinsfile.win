@@ -1,7 +1,7 @@
 pipeline{
 	agent any
 	environment{
-		var_var = "${PACKAGE-LIST}"
+		var_var = "${env.PACKAGE-LIST}"
 	}
 	
 	stages{
