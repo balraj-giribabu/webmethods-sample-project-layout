@@ -1,12 +1,10 @@
 pipeline{
     agent any
-    environment{
-         packages_names_list = sh(script: 'echo "${PACKAGE-LIST}"', returnStdout: true)
-        }
     stages{
         stage('Verifying Packages'){
             steps{
                 script{
+                    packages_names_list = '${PACKAGE-LIST}'
                     if(packages_names_list=="*"){
                     bat """move project_all.properties project.properties"""
                     stage("Building Packages"){
