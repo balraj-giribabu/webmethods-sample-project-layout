@@ -1,14 +1,16 @@
 pipeline{
 	agent any
 	environment{
-		var_var = "${env.PACKAGE-LIST}"
+		var_package_name = "${PACKAGE_TO_DEFINE}"
 	}
 	
 	stages{
 		stage('printing'){
 			steps{
 				script{
-					println var_var
+					for(item in var_package_name){
+					    println item
+					}
 				}
 			}
 		}
