@@ -1,14 +1,14 @@
 pipeline{
 	agent any
 	environment{
-		packages_names_list = "${PACKAGE-LIST}"
+		random_packages = "${PACKAGE-LIST}"
 	}
 	
 	stages{
 		stage("Creating Loop"){
 			steps{
 				script{
-					packages_names = packages_names_list.split(',')
+					packages_names = random_packages.split(',')
 					for (pack in packages_names){
 						println pack
 						bat """
