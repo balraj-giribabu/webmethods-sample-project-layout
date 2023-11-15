@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-         packages_names_list = `echo "${PACKAGE-LIST}"`
+         packages_names_list = sh(script: 'echo "${PACKAGE-LIST}"', returnStdout: true)
         }
     stages{
         stage('Verifying Packages'){
