@@ -35,7 +35,7 @@ pipeline{
                             for (item in Packages){
                                        println item
                                        bat """
-                                               xcopy "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item"  /e /i /y 
+                                               move "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item"   /y 
                                            """
                             }
                            }
