@@ -13,9 +13,9 @@ pipeline{
                     stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
                     }
-                   // stage("Deploying Packages"){
-                     //   bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
-                    //}
+                    stage("Deploying Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
+                    }
                 } else{
                     if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
                         bat """ cd assets/IS/Packages
@@ -39,20 +39,24 @@ pipeline{
                     stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
                     }
-                    //stage("Deploying Packages"){
-                      //  bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
-                    //}
+                    stage("Deploying Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
+                    }
                     bat """ cd assets/IS/Packages
                         rmdir /s Packages_To_Deploy /Q """
                     
                     stage("checking changes"){
                         
-                    final changeSet = build.getChangeSet()
-                    final changeSetIterator = changeSet.iterator()
-                    while (changeSetIterator.hasNext()) {
-                        final gitChangeSet = changeSetIterator.next()
-                        for (final path : gitChangeSet.getPaths()) {
-                            println path.getPath()
+                    def changedFiles = []
+                    def changeLogSets = currentBuild.changeSets
+                    for (entries in changeLogSets) {
+                        for (entry in entries) {
+                            for (file in entry.affectedFiles) {
+                                echo "Found changed file: ${file.path}"
+                                changedFiles += "${file.path}"
+        }
+    }
+}
                         }
                     }
 
