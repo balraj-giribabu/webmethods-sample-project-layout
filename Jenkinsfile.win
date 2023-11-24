@@ -44,6 +44,19 @@ pipeline{
                     }
                     bat """ cd assets/IS/Packages
                         rmdir /s Packages_To_Deploy /Q """
+                    
+                    stage("checking changes"){
+                        
+                    final changeSet = build.getChangeSet()
+                    final changeSetIterator = changeSet.iterator()
+                    while (changeSetIterator.hasNext()) {
+                        final gitChangeSet = changeSetIterator.next()
+                        for (final path : gitChangeSet.getPaths()) {
+                            println path.getPath()
+                        }
+                    }
+
+                    }
                 }
                 
             }
