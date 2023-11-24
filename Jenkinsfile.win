@@ -54,10 +54,8 @@ pipeline{
                             for (file in entry.affectedFiles) {
                                 echo "Found changed file: ${file.path}"
                                 changedFiles += "${file.path}"
-        }
-    }
-}
-                        }
+                                        }
+                                }
                     }
 
                     }
