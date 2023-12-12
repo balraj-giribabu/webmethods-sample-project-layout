@@ -17,6 +17,9 @@ pipeline{
                     }
 
                     for (file_name in changedFiles){
+                        if (file_name=="Jenkinsfile.win"){
+                            continue
+                        }
                         file_name = file_name.split("/")
                         def changed_package_name = file_name[3]
                         if (changed_package_name in changed_packages_list){
