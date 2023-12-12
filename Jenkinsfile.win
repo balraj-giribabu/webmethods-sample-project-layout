@@ -31,18 +31,18 @@ pipeline{
                     }
                     println changed_packages_list
 
-                    if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
-                        bat """ cd assets/IS/Packages
-                        rmdir /s Packages_To_Deploy /Q """
-                    }
+                    //if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
+                      //  bat """ cd assets/IS/Packages
+                        //rmdir /s Packages_To_Deploy /Q """
+                    //}
                     println "file checking completed"
-                    bat """
-                    move project_specific.properties project.properties
-                    cd assets/IS/Packages
-                    mkdir Packages_To_Deploy
-                    cd ../../../
-                    """
-                    //println "directory created"
+                    //bat """
+                    //move project_specific.properties project.properties
+                    //cd assets/IS/Packages
+                    //mkdir Packages_To_Deploy
+                    //cd ../../../
+                    //"""
+                    println "directory created"
                     for(item in changed_packages_list){
                         if(item=="IXAdminFramework" || item=="DOECommon"){
                             bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
