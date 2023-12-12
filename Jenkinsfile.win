@@ -42,7 +42,7 @@ pipeline{
                     mkdir Packages_To_Deploy
                     cd ../../../
                     """
-                    println "directory created"
+                    //println "directory created"
                     for(item in changed_packages_list){
                         if(item=="IXAdminFramework" || item=="DOECommon"){
                             bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
