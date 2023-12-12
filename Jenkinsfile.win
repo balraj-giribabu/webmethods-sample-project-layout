@@ -31,10 +31,10 @@ pipeline{
                     }
                     println changed_packages_list
 
-                    /*if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
+                    //if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
                       //  bat """ cd assets/IS/Packages
                         //rmdir /s Packages_To_Deploy /Q """
-                    } */
+                    //}
                     println "file checking completed"
                     //bat """
                     //move project_specific.properties project.properties
@@ -43,7 +43,7 @@ pipeline{
                     //cd ../../../
                     //"""
                     println "directory created"
-                    /* for(item in changed_packages_list){
+                    for(item in changed_packages_list){
                         if(item=="IXAdminFramework" || item=="DOECommon"){
                             bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
                         }
@@ -51,11 +51,11 @@ pipeline{
                             bat """ xcopy assets\\IS\\Packages\\$item assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i """
                         }
                         
-                    }*/
+                    }
                     println("files copies or moved")
-                    /*stage("Building Packages"){
+                    stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
-                    } */
+                    }
                     stage("Deploying Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
                     }
