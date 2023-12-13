@@ -71,5 +71,6 @@ pipeline{
 @NonCPS
 
 def changes_method(){
+    println "called changes_method function"
     return currentBuild.changeSets
 }
