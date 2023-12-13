@@ -1,83 +1,30 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage("Verifying Packages"){
-            steps{
-                script{
-                    def changedFiles = []
-                    def changed_packages_list = []
-                    def changeLogSets = changes_method()
-                    for (entries in changeLogSets) {
-                        for (entry in entries) {
-                            for (file in entry.affectedFiles) {
-                                echo "Found changed file: ${file.path}"
-                                changedFiles += "${file.path}"
-                                        }
-                                }
-                    }
 
-                    for (file_name in changedFiles){
-                        if (file_name=="Jenkinsfile.win"){
-                             println " completed if statement"
-                            continue
-                        }
-                        else{
-                              println " went inside else"
-                            file_name = file_name.split("/")
-                            def changed_package_name = file_name[3]
-                            if (changed_package_name in changed_packages_list){
-                                 println " went inside if for loop"
-                                continue
-                            }
-                            else{
-                                println " went inside else for loop"
-                                changed_packages_list.add(changed_package_name)
-                            }
-                        }
-                        println "file name split completed"
-                    }
-                    println changed_packages_list
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Checkout the code with changeset parameter
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, userRemoteConfigs: [[url: 'https://github.com/balraj-giribabu/webmethods-sample-project-layout.git']]], changelog: true, changeset: "origin/main..origin/${BUILD_NUMBER}")
+                }
+            }
+        }
 
-                    if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
-                        bat """ cd assets/IS/Packages
-                        rmdir /s Packages_To_Deploy /Q """
-                    }
-                    println "file checking completed"
-                    bat """
-                    move project_specific.properties project.properties
-                    cd assets/IS/Packages
-                    mkdir Packages_To_Deploy
-                    cd ../../../
-                    """
-                    println "directory created"
-                    for(item in changed_packages_list){
-                        if(item=="IXAdminFramework" || item=="DOECommon"){
-                            bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
+        stage('Print Changed Files') {
+            steps {
+                script {
+                    // Get the list of changed files
+                    def changedFiles = currentBuild.changeSets.collect { entry ->
+                        entry.items.collect { item ->
+                            item.path
                         }
-                        else{
-                            bat """ xcopy assets\\IS\\Packages\\$item assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i """
-                        }
-                        
-                    }
-                    println("files copies or moved")
-                    stage("Building Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
-                    }
-                    stage("Deploying Packages"){
-                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
-                    }
-                    bat """ cd assets/IS/Packages
-                        rmdir /s Packages_To_Deploy /Q """
+                    }.flatten().unique()
 
+                    echo "Changed Files:"
+                    echo changedFiles.join('\n')
                 }
             }
         }
     }
-}
-
-@NonCPS
-
-def changes_method(){
-    println "called changes_method function"
-    return currentBuild.changeSets
 }
