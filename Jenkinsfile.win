@@ -6,7 +6,8 @@ pipeline{
                 script{
                     
                     List<String> changedFiles = changes_method()
-                    List<String> changed_packages_list = filter_package_names()
+                    List<String> changed_packages_list = []
+                    filter_package_names()
 
                     
                     println changed_packages_list
