@@ -18,15 +18,19 @@ pipeline{
 
                     for (file_name in changedFiles){
                         if (file_name=="Jenkinsfile.win"){
+                             println " completed if statement"
                             continue
                         }
                         else{
+                              println " went inside else"
                             file_name = file_name.split("/")
                             def changed_package_name = file_name[3]
                             if (changed_package_name in changed_packages_list){
+                                 println " went inside if for loop"
                                 continue
                             }
                             else{
+                                println " went inside else for loop"
                                 changed_packages_list.add(changed_package_name)
                             }
                         }
