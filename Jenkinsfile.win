@@ -6,6 +6,9 @@ pipeline{
                 script{
                     
                     List<String> changedFiles = changes_method()
+
+                    println "printing changedFiles list"
+                    println changedFiles
                     List<String> changed_packages_list = []
                     filter_package_names()
 
@@ -72,6 +75,7 @@ List<String> changes_method(){
 
 List<String> filter_package_names(){
     println " calling filter_file_name method"
+    println changedFiles
     for (file_name in changedFiles){
         if (file_name=="Jenkinsfile.win"){
             println " completed if statement"
