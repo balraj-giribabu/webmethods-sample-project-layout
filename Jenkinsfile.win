@@ -20,13 +20,15 @@ pipeline{
                         if (file_name=="Jenkinsfile.win"){
                             continue
                         }
-                        file_name = file_name.split("/")
-                        def changed_package_name = file_name[3]
-                        if (changed_package_name in changed_packages_list){
-                            continue
-                        }
                         else{
-                            changed_packages_list.add(changed_package_name)
+                            file_name = file_name.split("/")
+                            def changed_package_name = file_name[3]
+                            if (changed_package_name in changed_packages_list){
+                                continue
+                            }
+                            else{
+                                changed_packages_list.add(changed_package_name)
+                            }
                         }
                         println "file name split completed"
                     }
