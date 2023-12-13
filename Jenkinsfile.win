@@ -28,6 +28,7 @@ pipeline{
                         else{
                             changed_packages_list.add(changed_package_name)
                         }
+                        println "file name split completed"
                     }
                     println changed_packages_list
 
