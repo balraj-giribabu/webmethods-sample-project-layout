@@ -2,15 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    // Checkout the code with changeset parameter
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, userRemoteConfigs: [[url: 'https://github.com/balraj-giribabu/webmethods-sample-project-layout.git']]], changelog: true, changeset: "origin/main..origin/${BUILD_NUMBER}")
-                }
-            }
-        }
-
+        
         stage('Print Changed Files') {
             steps {
                 script {
