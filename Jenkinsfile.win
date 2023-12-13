@@ -6,7 +6,7 @@ pipeline{
                 script{
                     def changedFiles = []
                     def changed_packages_list = []
-                    def changeLogSets = currentBuild.changeSets
+                    def changeLogSets = changes_method()
                     for (entries in changeLogSets) {
                         for (entry in entries) {
                             for (file in entry.affectedFiles) {
@@ -66,4 +66,10 @@ pipeline{
             }
         }
     }
+}
+
+@NonCPS
+
+def changes_method(){
+    return currentBuild.changeSets
 }
