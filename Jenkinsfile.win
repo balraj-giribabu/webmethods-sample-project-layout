@@ -21,7 +21,7 @@ pipeline{
                             continue
                         }
                         else{
-                            def file_name = file_name.split("/")
+                            file_name = file_name.split("/")
                             def changed_package_name = file_name[3]
                             if (changed_package_name in changed_packages_list){
                                 continue
