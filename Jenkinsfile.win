@@ -1,22 +1,92 @@
-pipeline {
+pipeline{
     agent any
+    stages{
+        stage("Verifying Packages"){
+            steps{
+                script{
+                    
+                    List<String> changedFiles = changes_method()
+                    List<String> changed_packages_list = filter_package_names()
 
-    stages {
-        
-        stage('Print Changed Files') {
-            steps {
-                script {
-                    // Get the list of changed files
-                    def changedFiles = currentBuild.changeSets.collect { entry ->
-                        entry.items.collect { item ->
-                            item.path
+                    
+                    println changed_packages_list
+
+                    if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
+                          println "inside file exixts function"
+                        bat """ cd assets/IS/Packages
+                        rmdir /s Packages_To_Deploy /Q """
+                    }
+                    println "file checking completed"
+                    bat """
+                    move project_specific.properties project.properties
+                    cd assets/IS/Packages
+                    mkdir Packages_To_Deploy
+                    cd ../../../
+                    """
+                    println "directory created"
+                    for(item in changed_packages_list){
+                        if(item=="IXAdminFramework" || item=="DOECommon"){
+                            bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
                         }
-                    }.flatten().unique()
+                        else{
+                            bat """ xcopy assets\\IS\\Packages\\$item assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i """
+                        }
+                        
+                    }
+                    println("files copies or moved")
+                    stage("Building Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
+                    }
+                    stage("Deploying Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
+                    }
+                    bat """ cd assets/IS/Packages
+                        rmdir /s Packages_To_Deploy /Q """
 
-                    echo "Changed Files:"
-                    echo changedFiles.join('\n')
                 }
             }
         }
+    }
+}
+
+@NonCPS
+
+List<String> changes_method(){
+    println "called changes_method function"
+    def changedFiles_2 = []
+    def changeLogSets = currentBuild.changeSets
+    for (entries in changeLogSets) {
+        for (entry in entries) {
+            for (file in entry.affectedFiles) {
+                echo "Found changed file: ${file.path}"
+                changedFiles_2 += "${file.path}"
+             }
+        }
+    }
+    return changedFiles_2
+}
+
+@NonCPS
+
+List<String> filter_package_names(){
+    println " calling filter_file_name method"
+    for (file_name in changedFiles){
+        if (file_name=="Jenkinsfile.win"){
+            println " completed if statement"
+            continue
+        }
+        else{
+            print "entere into else block"           
+            file_name = file_name.split("/")
+            def changed_package_name = file_name[3]
+            if (changed_package_name in changed_packages_list){
+                continue
+            }
+            else{
+                              
+                changed_packages_list.add(changed_package_name)
+            }
+        }
+                        
     }
 }
