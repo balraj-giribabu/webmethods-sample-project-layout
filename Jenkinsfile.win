@@ -9,10 +9,30 @@ pipeline{
 
                     println "printing changedFiles list"
                     println changedFiles
-                    List<String> changed_packages_list = []
-                    filter_package_names()
+                    //List<String> changed_packages_list = []
+                    //filter_package_names()
 
-                    
+
+
+                    for (file_name in changedFiles){
+                        if (file_name=="Jenkinsfile.win"){
+                            println " completed if statement"
+                            continue
+                        }
+                        else{
+                            print "entere into else block"           
+                            file_name = file_name.split("/")
+                            def changed_package_name = file_name[3]
+                            if (changed_package_name in changed_packages_list){
+                                continue
+                            }
+                            else{
+                                                
+                                changed_packages_list.add(changed_package_name)
+                            }
+                        }
+                    }
+                        
                     println changed_packages_list
 
                     if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
@@ -70,6 +90,7 @@ List<String> changes_method(){
     print changedFiles_2
     return changedFiles_2
 }
+/*
 
 @NonCPS
 
@@ -96,3 +117,4 @@ List<String> filter_package_names(){
                         
     }
 }
+*/
