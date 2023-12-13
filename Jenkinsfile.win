@@ -18,7 +18,7 @@ pipeline{
                     for (file_name in changedFiles){
                         if (file_name=="Jenkinsfile.win"){
                             println " completed if statement"
-                            println $file_name
+                            println "${file_name}"
                             continue
                         }
                         else{
