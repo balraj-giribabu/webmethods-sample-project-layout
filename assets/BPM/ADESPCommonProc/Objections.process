@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<businessProcessDiagram xmlns="http://www.webmethods.com/bpm/2006/"
+  Id="d1dc9bed-b31a-4097-aec8-8978ab74090d" bpmnStyle="false" build="1"
+  canvasPool="1" creator="SreenivasAravelli" description=""
+  failProcessOnStepFailure="false" focalRole="Focal role"
+  generateEDAEvents="true" name="Objections" processCategory=""
+  rnSync="false" runtimeVersion="1" transitionLabelPref="expression"
+  unSynchJoinDeadPath="true" version="10.2.0">
+  <kpiDimensions/>
+  <systemKPIs>
+    <systemKPI Id="" description="" name="Volume" unitOfMeasure=""/>
+    <systemKPI Id="" description="" name="Cycle Time" unitOfMeasure=""/>
+    <systemKPI Id="" description="" name="Error Count" unitOfMeasure=""/>
+  </systemKPIs>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="ProcessData" name="{ProcessNamespace}ProcessData" type="{pub.prt}ProcessData"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="BusinessDoc_1" name="{ProcessNamespace}BusinessDoc_1" type="{ADESPCommon.documents.objections}BusinessDoc"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="BusinessDoc" name="{ProcessNamespace}BusinessDoc" type="{ADESPCommon.documents.objections}BusinessDoc"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="Review ObjectionsInputEnv"
+    name="{ProcessNamespace}Review ObjectionsInputEnv" type="{pub.task}TaskQueueInfo"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="Review ObjectionsOutputEnv"
+    name="{ProcessNamespace}Review ObjectionsOutputEnv" type="{pub.task}TaskCompletionInfo"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="Review Objections By Section HeadInputEnv"
+    name="{ProcessNamespace}Review Objections By Section HeadInputEnv" type="{pub.task}TaskQueueInfo"/>
+  <logicalDataItem Id="" description="" dimension="0"
+    label="Review Objections By Section HeadOutputEnv"
+    name="{ProcessNamespace}Review Objections By Section HeadOutputEnv" type="{pub.task}TaskCompletionInfo"/>
+  <timeout calendarAlias="" calendarTime="0:0:0"
+    dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+    dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+    dynamicFieldName="" isCalendarTimeout="false" isStaticTimeout="true"
+    isXPathTimeout="false" pipelineCalendarAlias=""
+    pipelineCalendarDays="" pipelineCalendarHours=""
+    pipelineCalendarMinutes="" timeoutStyle="RELATIVE"
+    timeoutType="processTimeout" timeoutValue="0" xpathTimeoutValue=""/>
+  <pool Id="c472a836-a471-4069-a0bd-389029fb8910" blue="128"
+    containerType="BPMN_SUBPROCESS" external="true"
+    externalizeConditions="false" green="128" isCollapsed="false"
+    isCompensating="false" isTestAfter="false" label="Pool"
+    labelBlue="255" labelGreen="204" labelRed="153" logicalServer=""
+    loopMaximum="0" loopMaximumField="" name="1"
+    orientation="horizontal" red="128" retryCount="0" stepLock="false"
+    uid="P2" useCorrelation="false">
+    <documentation/>
+    <businessKPIs/>
+    <fontData boldFont="false" fontFamily="" italicFont="false"/>
+    <poolReference Id="faced6b6-ce39-4d1c-a752-1d4164d78e84"
+      label="Objections" logicalServer="Default" poolName="6"
+      stepLock="false" uid="S3" useCorrelation="false" x="123" y="58">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="" italicFont="false"/>
+    </poolReference>
+    <timeout calendarAlias="" calendarTime="0:0:0"
+      dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+      dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+      dynamicFieldName="" isCalendarTimeout="false"
+      isStaticTimeout="true" isXPathTimeout="false"
+      pipelineCalendarAlias="" pipelineCalendarDays=""
+      pipelineCalendarHours="" pipelineCalendarMinutes=""
+      timeoutStyle="RELATIVE" timeoutType="stepTimeout" timeoutValue="0" xpathTimeoutValue=""/>
+    <wmExpression/>
+  </pool>
+  <pool Id="a94b3c1e-5900-45ff-acb2-c9f6891eecaf" blue="128"
+    containerType="BPMN_SUBPROCESS" external="false"
+    externalizeConditions="false" green="128" isCollapsed="false"
+    isCompensating="false" isTestAfter="false" label="Objections"
+    labelBlue="255" labelGreen="204" labelRed="153" logicalServer=""
+    loopMaximum="0" loopMaximumField="" name="6"
+    orientation="horizontal" red="128" retryCount="0" stepLock="false"
+    uid="P7" useCorrelation="false">
+    <documentation/>
+    <businessKPIs/>
+    <fontData boldFont="false" fontFamily="" italicFont="false"/>
+    <terminateStep Id="814d0ad5-950e-48cc-b54d-6f07ea767a6e"
+      escalateFailure="true" height="28" label="Terminate Objections"
+      labelHeight="-1" labelWidth="-1" logicalServer="Default"
+      stepLock="false" terminateStatus="DONE" uid="S22"
+      useCorrelation="false" width="28" x="881" y="217">
+      <documentation/>
+      <join joinType="UnsynchronizedOr" suppressJoinFailure="false" synchronizationPoint="false"/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+    </terminateStep>
+    <gatewayStep Id="b45d87ec-b23e-4671-bd23-2ce05917f370"
+      externalizeConditions="false" gatewayType="EXCLUSIVE" height="34"
+      label="L&amp;C Section Head Decision" labelHeight="-1"
+      labelWidth="-1" logicalServer="Default" retryCount="0"
+      stepLock="false" uid="S27" useCorrelation="false" width="34"
+      x="450" y="385">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </gatewayStep>
+    <receiveStep Id="4ae3f503-ad63-405d-b93c-4dd558f4546c"
+      allowsSynchronousReply="false" edaEventQName="" edaSubFilter=""
+      edaSubFilterLang="" eventType="START"
+      externalizeConditions="false" height="28"
+      isStartStepServiceRequired="true" label="Receive Objections"
+      labelHeight="-1" labelWidth="-1" logicalServer="Default"
+      outputMessageType="{ADESPCommon.documents.objections}BusinessDoc"
+      receiveProtocol="SUBSCRIPTION" receiveType="EMPTY"
+      stepLock="false" uid="S46" useCorrelation="false" width="28"
+      x="133" y="51">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <wmExpressionFilter/>
+    </receiveStep>
+    <invokeStep Id="2f19b148-470c-4fdd-bdb4-f18628396fee"
+      dynamicReferenceProcess="false" externalizeConditions="false"
+      height="60" invokeContainer="ADESPCommon.work.processServices"
+      invokeId="ADESPCommon.work.processServices:deactivatePublicNotice"
+      invokeLocation="ADESPCommon.work.processServices:deactivatePublicNotice"
+      invokeName="deactivatePublicNotice" invokeType="ISSERVICE"
+      isCompensating="false" isTestAfter="false"
+      label="Deactivate Public notice" labelHeight="-1" labelWidth="-1"
+      logicalServer="Default" loopMaximum="0" loopMaximumField=""
+      retryCount="0" routingRuleSet="" ruleType="WMRULE"
+      stepLock="false" uid="S29" useCorrelation="false" width="93"
+      x="856" y="372">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <input name="{ProcessNamespace}BusinessDoc_1"/>
+      <wmExpression/>
+      <output name="{ProcessNamespace}BusinessDoc_1"/>
+      <extendedProperty name="retries" value="0"/>
+      <extendedProperty name="retryInterval" value="60000"/>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </invokeStep>
+    <invokeStep Id="f2aedf13-5e81-44ca-8f21-f8fc3754d199"
+      dynamicReferenceProcess="false" externalizeConditions="false"
+      height="60" invokeContainer="ADESPCommon.work.processServices"
+      invokeId="ADESPCommon.work.processServices:getObjectionsProcConf"
+      invokeLocation="ADESPCommon.work.processServices:getObjectionsProcConf"
+      invokeName="getObjectionsProcConf" invokeType="ISSERVICE"
+      isCompensating="false" isTestAfter="false"
+      label="Prepare  Process Configration Data" labelHeight="-1"
+      labelWidth="-1" logicalServer="Default" loopMaximum="0"
+      loopMaximumField="" retryCount="0" routingRuleSet=""
+      ruleType="WMRULE" stepLock="false" uid="S55"
+      useCorrelation="false" width="93" x="263" y="35">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <input name="{ProcessNamespace}BusinessDoc"/>
+      <wmExpression/>
+      <output name="{ProcessNamespace}BusinessDoc"/>
+      <extendedProperty name="retries" value="0"/>
+      <extendedProperty name="retryInterval" value="60000"/>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </invokeStep>
+    <invokeStep Id="df0b0ede-79bf-4731-b2e7-f7cfdaa49942"
+      dynamicReferenceProcess="false" externalizeConditions="false"
+      height="60" invokeContainer="P/ADESPCommonTaskImpl"
+      invokeId="19317E4E-0DAB-AB8F-8A9F-7AB082788409" invokeLocation=""
+      invokeName="ObjectionsTask" invokeType="TASK"
+      isCompensating="false" isTestAfter="false"
+      label="Review Objections" labelHeight="-1" labelWidth="-1"
+      logicalServer="Default" loopMaximum="0" loopMaximumField=""
+      retryCount="0" routingRuleSet="" ruleType="TASK" stepLock="false"
+      uid="S58" useCorrelation="false" width="93" x="108" y="183">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <input name="{ProcessNamespace}BusinessDoc"/>
+      <input name="{ProcessNamespace}Review ObjectionsInputEnv"/>
+      <wmExpression/>
+      <output name="{ProcessNamespace}BusinessDoc"/>
+      <output name="{ProcessNamespace}Review ObjectionsOutputEnv"/>
+      <extendedProperty name="retries" value="0"/>
+      <extendedProperty name="retryInterval" value="60000"/>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </invokeStep>
+    <invokeStep Id="f5d7194f-6681-4de1-b186-c283e2767402"
+      dynamicReferenceProcess="false" externalizeConditions="false"
+      height="60" invokeContainer="P/ADESPCommonTaskImpl"
+      invokeId="19317E4E-0DAB-AB8F-8A9F-7AB082788409" invokeLocation=""
+      invokeName="ObjectionsTask" invokeType="TASK"
+      isCompensating="false" isTestAfter="false"
+      label="Review Objections By Section Head" labelHeight="-1"
+      labelWidth="-1" logicalServer="Default" loopMaximum="0"
+      loopMaximumField="" retryCount="0" routingRuleSet=""
+      ruleType="TASK" stepLock="false" uid="S61" useCorrelation="false"
+      width="93" x="108" y="372">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <input name="{ProcessNamespace}BusinessDoc"/>
+      <input name="{ProcessNamespace}Review Objections By Section HeadInputEnv"/>
+      <wmExpression/>
+      <output name="{ProcessNamespace}BusinessDoc"/>
+      <output name="{ProcessNamespace}Review Objections By Section HeadOutputEnv"/>
+      <extendedProperty name="retries" value="0"/>
+      <extendedProperty name="retryInterval" value="60000"/>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </invokeStep>
+    <invokeStep Id="350d8d06-5ce8-4c16-91ff-0d47bdbd4f1d"
+      dynamicReferenceProcess="false" externalizeConditions="false"
+      height="60" invokeContainer="ADESPCommon.work.processServices"
+      invokeId="ADESPCommon.work.processServices:deactivatePublicNotice"
+      invokeLocation="" invokeName="deactivatePublicNotice"
+      invokeType="ISSERVICE" isCompensating="false" isTestAfter="false"
+      label="Update Objectins Status" labelHeight="-1" labelWidth="-1"
+      logicalServer="Default" loopMaximum="0" loopMaximumField=""
+      retryCount="0" routingRuleSet="" ruleType="WMRULE"
+      stepLock="false" uid="S65" useCorrelation="false" width="93"
+      x="629" y="172">
+      <documentation/>
+      <businessKPIs/>
+      <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+        <fontColor blue="0" green="0" red="0"/>
+      </fontData>
+      <input name="{ProcessNamespace}BusinessDoc"/>
+      <wmExpression/>
+      <output name="{ProcessNamespace}BusinessDoc"/>
+      <extendedProperty name="retries" value="0"/>
+      <extendedProperty name="retryInterval" value="60000"/>
+      <timeout calendarAlias="" calendarTime="0:0:0"
+        dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+        dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+        dynamicFieldName="" isCalendarTimeout="false"
+        isStaticTimeout="true" isXPathTimeout="false"
+        pipelineCalendarAlias="" pipelineCalendarDays=""
+        pipelineCalendarHours="" pipelineCalendarMinutes=""
+        timeoutStyle="RELATIVE" timeoutType="stepTimeout"
+        timeoutValue="0" xpathTimeoutValue=""/>
+    </invokeStep>
+    <transition Id="8adb3c3e-a2fa-4742-9257-0f869572ddfc" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S29"
+      sourceLocation="895,372" sourceTerminal="TOP" target="S22"
+      targetLocation="895,245" targetTerminal="BOTTOM" uid="T32">
+      <labelLayout blue="0" defaultLocation="true" green="196"
+        height="-1" red="255" width="-1" x="-1" y="-1">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <transition Id="863044fa-64d4-407d-89f0-3ee5101365f9" blue="255"
+      conditionDescription=""
+      conditionText="BusinessDoc/action = APPROVED" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S27"
+      sourceLocation="484,402" sourceTerminal="RIGHT" target="S29"
+      targetLocation="856,402" targetTerminal="LEFT" uid="T44">
+      <labelLayout blue="0" defaultLocation="false" green="196"
+        height="18" red="255" width="249" x="696" y="499">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression>
+        <row chainOperator="" leftFieldPath="action"
+          leftOperand="{ProcessNamespace}BusinessDoc" operator="=" rightOperand="'APPROVED'"/>
+      </wmExpression>
+    </transition>
+    <transition Id="6213c14a-91c7-4e4a-835b-7911a5c2571e" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S46"
+      sourceLocation="161,65" sourceTerminal="RIGHT" target="S55"
+      targetLocation="263,65" targetTerminal="LEFT" uid="T56">
+      <labelLayout blue="0" defaultLocation="true" green="196"
+        height="-1" red="255" width="-1" x="-1" y="-1">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <transition Id="db649188-f95a-46a6-958e-e7a927a33fe2" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S55"
+      sourceLocation="309,95" sourceTerminal="BOTTOM" target="S58"
+      targetLocation="201,213" targetTerminal="RIGHT" uid="T59">
+      <bendpoint index="0" location="462,272" weight="0.5"/>
+      <labelLayout blue="0" defaultLocation="false" green="196"
+        height="-1" red="255" width="-1" x="454" y="254">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <transition Id="bee64e50-7c30-4719-bf5e-33b399e1ea9f" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S58"
+      sourceLocation="154,243" sourceTerminal="BOTTOM" target="S61"
+      targetLocation="154,372" targetTerminal="TOP" uid="T62">
+      <labelLayout blue="0" defaultLocation="true" green="196"
+        height="-1" red="255" width="-1" x="-1" y="-1">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <transition Id="44a3d500-aeb5-4114-92bf-f51e98cc402e" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S61"
+      sourceLocation="201,402" sourceTerminal="RIGHT" target="S27"
+      targetLocation="450,402" targetTerminal="LEFT" uid="T64">
+      <labelLayout blue="0" defaultLocation="true" green="196"
+        height="-1" red="255" width="-1" x="-1" y="-1">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <transition Id="0a9df04d-5c07-43d8-b911-b2f53707f352" blue="255"
+      conditionDescription=""
+      conditionText="BusinessDoc/action = REJECTED" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S27"
+      sourceLocation="467,385" sourceTerminal="TOP" target="S65"
+      targetLocation="629,202" targetTerminal="LEFT" uid="T66">
+      <bendpoint index="0" location="620,261" weight="0.5"/>
+      <labelLayout blue="0" defaultLocation="false" green="196"
+        height="18" red="255" width="245" x="517" y="297">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression>
+        <row chainOperator="" leftFieldPath="action"
+          leftOperand="{ProcessNamespace}BusinessDoc" operator="=" rightOperand="'REJECTED'"/>
+      </wmExpression>
+    </transition>
+    <transition Id="b143ed96-abd5-48a7-971c-fa24f51a01bf" blue="255"
+      conditionDescription="" conditionText="" conditionType="IF"
+      green="0" lineShape="STRAIGHT" red="0" source="S65"
+      sourceLocation="722,202" sourceTerminal="RIGHT" target="S22"
+      targetLocation="895,217" targetTerminal="TOP" uid="T67">
+      <bendpoint index="0" location="1048,261" weight="0.5"/>
+      <labelLayout blue="0" defaultLocation="true" green="196"
+        height="-1" red="255" width="-1" x="-1" y="-1">
+        <fontData boldFont="false" fontFamily="Arial" fontSize="8" italicFont="false">
+          <fontColor blue="0" green="0" red="0"/>
+        </fontData>
+      </labelLayout>
+      <wmExpression/>
+    </transition>
+    <timeout calendarAlias="" calendarTime="0:0:0"
+      dynamicCalendarStaticAlias="" dynamicCalendarStaticDays=""
+      dynamicCalendarStaticHours="" dynamicCalendarStaticMinutes=""
+      dynamicFieldName="" isCalendarTimeout="false"
+      isStaticTimeout="true" isXPathTimeout="false"
+      pipelineCalendarAlias="" pipelineCalendarDays=""
+      pipelineCalendarHours="" pipelineCalendarMinutes=""
+      timeoutStyle="RELATIVE" timeoutType="stepTimeout" timeoutValue="0" xpathTimeoutValue=""/>
+    <wmExpression/>
+    <swimlane Id="71ff60b2-9f72-4edf-9962-5b03da8dee74" blue="204"
+      green="255" height="150" label="Receive Objections"
+      labelBlue="255" labelGreen="238" labelRed="221"
+      name="Receive Objections" red="255" uid="W8" width="1045">
+      <documentation/>
+    </swimlane>
+    <swimlane Id="f8a9ad39-22fa-4952-8f63-783c4c8f2cbc" blue="204"
+      green="255" height="150"
+      label="Licensing and Compliance Specialist" labelBlue="255"
+      labelGreen="238" labelRed="221"
+      name="Licensing and Compliance Specialist" red="255" uid="W10" width="1045">
+      <documentation/>
+    </swimlane>
+    <swimlane Id="be4d3505-e5e7-45d8-97b7-537748e25d72" blue="204"
+      green="255" height="215"
+      label="Licensing &amp; Compliance Section Head" labelBlue="255"
+      labelGreen="238" labelRed="221"
+      name="Licensing &amp; Compliance Section Head" red="255" uid="W11" width="1045">
+      <documentation/>
+    </swimlane>
+  </pool>
+  <documentation/>
+</businessProcessDiagram>
