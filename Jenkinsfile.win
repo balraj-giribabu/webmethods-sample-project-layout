@@ -39,15 +39,11 @@ pipeline{
                                 
                         }
                     }
-
-                    def ix_packages_as_string = ix_packages_list.join('/')
                         
                     println changed_packages_list
                     println ix_packages_list
-                    println ix_packages_as_string
 
                     if (fileExists("assets/IS/Packages/Packages_To_Deploy")){
-                          println "inside file exixts function"
                         bat """ cd assets/IS/Packages
                         rmdir /s Packages_To_Deploy /Q """
                     }
@@ -59,7 +55,7 @@ pipeline{
                     cd ../../../
                     """
                     println "directory created"
-                    for(item in changed_packages_list){
+                    for(item in ix_packages_list){
                         if(item=="IXAdminFramework" || item=="DOECommon"){
                             bat """ move /y "assets\\IS\\Packages\\$item" "assets\\IS\\Packages\\Packages_To_Deploy\\$item" """
                         }
@@ -68,13 +64,24 @@ pipeline{
                         }
                         
                     }
-                    println("files copies or moved")
-
-                    stage{"Calling Downstream Job"}{
-                        steps{
-                            build 'downstream'
-                        }
+                    println("copied ix_packages")
+                    stage("Building IX Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
                     }
+                    stage("Deploying IX Packages"){
+                        bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
+                    }
+                    bat """ cd assets/IS/Packages
+                        rmdir /s Packages_To_Deploy /Q 
+                        mkdir Packages_To_Deploy """
+                    
+                    println "directory created again"
+                    for(item in changed_packages_list){
+                            bat """ xcopy assets\\IS\\Packages\\$item assets\\IS\\Packages\\Packages_To_Deploy\\$item  /e /i """
+                        }
+                        
+                    }
+                    println("copied other_packages")
                     stage("Building Packages"){
                         bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
                     }
