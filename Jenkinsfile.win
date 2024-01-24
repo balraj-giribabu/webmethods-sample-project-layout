@@ -15,6 +15,7 @@ pipeline{
                 
                     bat """
                     cd assets/BPM
+                    rmdir /s Packs /Q
                     mkdir Packs
                     """
                     
