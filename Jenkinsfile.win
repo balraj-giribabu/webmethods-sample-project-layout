@@ -6,8 +6,7 @@ pipeline{
                 packages_names_list = "${PACKAGE_NAMES}"
             }
             steps{
-
-                script{
+                 script{
                     if (fileExists("/assets/BPM/Packs")){
                         println "inside file exixts function"
                         bat """ cd /assets/BPM
