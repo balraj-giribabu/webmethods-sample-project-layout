@@ -12,7 +12,6 @@
         <property name="mwsProjectsDir" location="${mwsProjects}"/>
         <property name="rulesProjectsDir" location="${rulesProjects}"/>
         <property name="umProjectsDir" location="${umExport}"/>
-	<property name="build.checkout.dir" location="C:/tmp"/>
         
         <property name="buildOutputDir" value="${workspace.dir}/target/${projectName}/build"/>
         <property name="repositoryName" value="${projectName}Repo"/>
