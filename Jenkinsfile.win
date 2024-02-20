@@ -14,7 +14,7 @@ pipeline{
                 """
                 script{
                     for(item in packages_names_list.split(',')){
-                        bat """ move /y "assets\\bkp\\$item" "assets\\BPM\\$item" """
+                        bat """ xcopy "assets\\bkp\\$item" "assets\\BPM\\$item"  /e /i"""
                         println item
                     }
                 }
