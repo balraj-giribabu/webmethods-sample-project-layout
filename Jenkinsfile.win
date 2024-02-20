@@ -7,14 +7,14 @@ pipeline{
             }
             steps{
                 bat """
-                move /y "assets\\BPM" "assets\\BPM-bkp"
+                move /y "assets\\BPM" "assets\\bkp"
                 cd assets
                 mkdir BPM
                 cd ..
                 """
                 script{
                     for(item in packages_names_list.split(',')){
-                        bat """ move /y "assets\\BPM-bkp\\$item" "assets\\BPM\\$item" """
+                        bat """ move /y "assets\\bkp\\$item" "assets\\BPM\\$item" """
                         println item
                     }
                 }
