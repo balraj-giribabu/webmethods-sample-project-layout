@@ -18,7 +18,8 @@ pipeline{
                         println item
                     }
                 }
-                bat """ cd assets/BPM/ && dir """
+                bat """ cd assets
+                rmdir /s bkp /Q"""
             }
         }
 
