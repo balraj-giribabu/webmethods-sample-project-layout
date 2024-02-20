@@ -6,25 +6,16 @@ pipeline{
                 packages_names_list = "${PACKAGE_NAMES}"
             }
             steps{
-                 script{
-                    if (fileExists("/assets/BPM/Packs")){
-                        println "inside file exixts function"
-                        bat """ cd /assets/BPM
-                        rmdir /s Packs /Q """
-                    }
-                
-                    bat """
-                    cd assets/BPM
-                    rmdir /s Packs /Q
-                    mkdir Packs
-                    """
-                    
-                    for(item in packages_names_list.split(',')){
-                        bat """ move /y "assets\\BPM\\$item" "assets\\BPM\\Packs\\$item" """
-                    }
+                bat """
+                move /y "assets\\BPM" "assets\\BPM-bkp"
+                mkdir BPM
+                """
+                for(item in packages_names_list.split(',')){
+                    bat """ move /y "assets\\BPM-bkp\\$item" "assets\\BPM\\$item" """
                 }
             }
         }
+    }
 
 
         stage("Build"){
