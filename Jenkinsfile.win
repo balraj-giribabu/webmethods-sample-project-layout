@@ -10,8 +10,10 @@ pipeline{
                 move /y "assets\\BPM" "assets\\BPM-bkp"
                 mkdir BPM
                 """
-                for(item in packages_names_list.split(',')){
-                    bat """ move /y "assets\\BPM-bkp\\$item" "assets\\BPM\\$item" """
+                script{
+                    for(item in packages_names_list.split(',')){
+                        bat """ move /y "assets\\BPM-bkp\\$item" "assets\\BPM\\$item" """
+                    }
                 }
             }
         }
