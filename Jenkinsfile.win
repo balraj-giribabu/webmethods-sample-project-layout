@@ -8,9 +8,9 @@ pipeline{
             steps{
                 bat """
                 move /y "assets\\BPM" "assets\\BPM-bkp"
+                cd assets
                 mkdir BPM
-                cd BPM
-                cd .. && dir
+                cd ..
                 """
                 script{
                     for(item in packages_names_list.split(',')){
