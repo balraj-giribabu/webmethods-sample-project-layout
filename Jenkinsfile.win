@@ -15,13 +15,15 @@ pipeline{
                 script{
                     for(item in packages_names_list.split(',')){
                         bat """ move /y "assets\\BPM-bkp\\$item" "assets\\BPM\\$item" """
+                        println item
                     }
                 }
+                bat """ cd assets/BPM/ && dir """
             }
         }
 
 
-        stage("Build"){
+       /* stage("Build"){
             steps{
                 bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml build"
             }
@@ -31,6 +33,6 @@ pipeline{
             steps{
                 bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -buildfile build.xml deploy"
             }
-        }
+        } */
     }
 }
