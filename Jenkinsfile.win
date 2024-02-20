@@ -9,6 +9,8 @@ pipeline{
                 bat """
                 move /y "assets\\BPM" "assets\\BPM-bkp"
                 mkdir BPM
+                cd BPM
+                cd .. && dir
                 """
                 script{
                     for(item in packages_names_list.split(',')){
