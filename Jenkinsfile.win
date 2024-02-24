@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("Initial Setup"){
+        /*stage("Initial Setup"){
             environment{
                 packages_names_list = "${PACKAGE_NAMES}"
             }
@@ -21,7 +21,7 @@ pipeline{
                 bat """ cd assets
                 rmdir /s bkp /Q"""
             }
-        }
+        } */
 
 
         stage("Build"){
