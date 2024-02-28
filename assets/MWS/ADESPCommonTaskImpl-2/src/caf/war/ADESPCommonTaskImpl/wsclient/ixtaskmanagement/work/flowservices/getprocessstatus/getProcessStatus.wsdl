@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<wsdl:definitions name="IXTaskManagement_work_flowServices" targetNamespace="http://localhost/"
+			xmlns:tns="http://localhost/"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+			xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+			xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			xmlns:wsdns1="http://localhost/IXTaskManagement/work/flowServices/getProcessStatus">
+	<wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost/IXTaskManagement/work/flowServices/getProcessStatus" xmlns:tns="http://localhost/IXTaskManagement/work/flowServices/getProcessStatus" xmlns:SOAP_ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+          <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+          <xsd:complexType name="__getProcessStatusInput">
+            <xsd:sequence>
+              <xsd:element name="interfaceId" nillable="true" type="xsd:string"/>
+              <xsd:element name="taskName" nillable="true" type="xsd:string"/>
+              <xsd:element name="actions" nillable="true" type="xsd:string"/>
+              <xsd:element name="companyId" nillable="true" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="__getProcessStatusOutput">
+            <xsd:sequence>
+              <xsd:element name="processStatus" nillable="true" type="tns:__ProcessStatus"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="__ProcessStatus">
+            <xsd:sequence>
+              <xsd:element name="id" nillable="true" type="xsd:string"/>
+              <xsd:element name="notificationId" nillable="true" type="xsd:string"/>
+              <xsd:element name="toList" nillable="true" type="tns:ArrayOfstring"/>
+              <xsd:element name="ccList" nillable="true" type="tns:ArrayOfstring"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="ArrayOfstring">
+            <xsd:complexContent>
+              <xsd:restriction base="SOAP_ENC:Array">
+                <xsd:attribute ref="SOAP_ENC:arrayType" wsdl:arrayType="xsd:string[]"/>
+              </xsd:restriction>
+            </xsd:complexContent>
+          </xsd:complexType>
+        </xsd:schema>
+
+	</wsdl:types>
+	
+	<wsdl:message name="_getProcessStatusInput">
+		<wsdl:part name="interfaceId" type="xsd:string"/>
+		<wsdl:part name="taskName" type="xsd:string"/>
+		<wsdl:part name="actions" type="xsd:string"/>
+		<wsdl:part name="companyId" type="xsd:string"/>
+	</wsdl:message>
+	
+	<wsdl:message name="_getProcessStatusOutput">
+		<wsdl:part name="processStatus" type="wsdns1:__ProcessStatus"/>
+	</wsdl:message>
+	<wsdl:portType name="IXTaskManagement_work_flowServicesPortType">
+		<wsdl:operation name="getProcessStatus">
+			<wsdl:input message="tns:_getProcessStatusInput"/>
+			<wsdl:output message="tns:_getProcessStatusOutput"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IXTaskManagement_work_flowServicesBinding" type="tns:IXTaskManagement_work_flowServicesPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getProcessStatus">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/IXTaskManagement.work.flowServices" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/IXTaskManagement.work.flowServices" use="encoded"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IXTaskManagement_work_flowServicesService">
+		<wsdl:port name="IXTaskManagement_work_flowServicesPort0" binding="tns:IXTaskManagement_work_flowServicesBinding">
+			<soap:address location="http://localhost:5555/soap/rpc"/>
+		</wsdl:port>
+	</wsdl:service>
+	</wsdl:definitions>

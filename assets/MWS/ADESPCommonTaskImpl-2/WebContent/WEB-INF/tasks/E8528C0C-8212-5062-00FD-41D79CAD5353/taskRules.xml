@@ -1,0 +1,32 @@
+<CONFIG xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.webmethods.com/schema/xmlImport.xsd"
+    depCheck="false"
+>
+	<Mode type="sync">
+	    <!-- Setup distribution rules -->
+	    <CONTEXT alias="E8528C0C-8212-5062-00FD-41D79CAD5353.routing.rules.storage">
+	    
+	    </CONTEXT>
+	
+	    <!-- Setup distribution filters -->
+	    <CONTEXT alias="E8528C0C-8212-5062-00FD-41D79CAD5353.filter.rules.storage">
+	    
+	    </CONTEXT>
+	
+	    <!-- Setup trigger rules -->
+	    <CONTEXT alias="E8528C0C-8212-5062-00FD-41D79CAD5353.change.rules.storage">
+	    
+	    <wm_xt_portalrules name="On Queue" description="" ruleEditingContextURI="E8528C0C-8212-5062-00FD-41D79CAD5353.trigger.rule.editing.context" info="1" ruleType="change">
+	<rule name="On Queue" description="" ruleEditingContextURI="E8528C0C-8212-5062-00FD-41D79CAD5353.trigger.rule.editing.context" ruleType="change">
+		<condition><and displayName="and" description="AND logical operator"><and displayName="and" description="AND logical operator"><equals displayName="equals" description="equals comparison"><bindingExpression constant="#{newTask.taskInfo.status}" displayName="bindingExpression" description="an external binding expression" variableInfo.enabled="false"></bindingExpression><string constant="active" displayName="string" description="a string value" variableInfo.enabled="false"></string></equals><equals displayName="equals" description="equals comparison"><bindingExpression constant="#{oldTask.taskInfo.status}" displayName="bindingExpression" description="an external binding expression" variableInfo.enabled="false"></bindingExpression><string constant="new" displayName="string" description="a string value" variableInfo.enabled="false"></string></equals></and><boolean constant="true" displayName="boolean" description="a boolean value (true or false)" variableInfo.enabled="false"></boolean></and></condition>
+		<result><bindingExpression constant="#{ObjectionsTaskRuleContext.onQueue}" displayName="bindingExpression" description="an external binding expression" variableInfo.enabled="false"></bindingExpression></result>
+		<attributes><attribute name="actionType">true</attribute><attribute name="taskDefinitionURI">E8528C0C-8212-5062-00FD-41D79CAD5353</attribute><attribute name="origConditionText">(#{newTask.taskInfo.status} == &quot;active&quot; &amp;&amp; #{oldTask.taskInfo.status} == &quot;new&quot;) &amp;&amp; (true)</attribute><attribute name="ruleEditingContextID">task.rule.trigger.context</attribute><attribute name="ruleType">change</attribute><attribute name="ruleSet"></attribute><attribute name="origResultText">#{ObjectionsTaskRuleContext.onQueue}</attribute><attribute name="eventType">task.queued</attribute><attribute name="eventTypeConditionsJoin">0</attribute><attribute name="actions">actiontype.invokeservice~#{ObjectionsTaskRuleContext.onQueue}~Invoke Service &quot;On Queue&quot;~value=ObjectionsTaskRuleContext.onQueue\,original.editor.type=</attribute><attribute name="eventTypeConditions"></attribute></attributes>
+	</rule>
+</wm_xt_portalrules></CONTEXT>
+	
+	    <!-- Setup schedule rules -->
+	    <CONTEXT alias="E8528C0C-8212-5062-00FD-41D79CAD5353.schedule.rules.storage">
+	    
+	    </CONTEXT>
+	</Mode>
+</CONFIG>

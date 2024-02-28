@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsclients>
+<webservice authenticationMethod="-1" isConnectionURL="http://localhost:5555/ws/IXTaskManagement.ws.provider.soap:queueTaskOperations?WSDL" isService="IXTaskManagement.ws.provider.soap:queueTaskOperations" name="queueTaskOperations" package="caf.war.ADESPCommonTaskImpl.wsclient.ixtaskmanagement.ws.provider.soap.queuetaskoperations" password="{AES}5rUwJ0hTniFwUqtm2BI7Sg==" requiresAuth="true" soapLibrary="wss" useNamespaceForPackage="false" username="Administrator" wsdlFile="src/caf/war/ADESPCommonTaskImpl/wsclient/ixtaskmanagement/ws/provider/soap/queuetaskoperations/queueTaskOperations.wsdl" wsdlURL="http://localhost:5555/ws/IXTaskManagement.ws.provider.soap:queueTaskOperations?WSDL">
+<wsproxy className="caf.war.ADESPCommonTaskImpl.wsclient.ixtaskmanagement.ws.provider.soap.queuetaskoperations.IXTaskManagementWsProviderSoapQueueTaskOperationsStub">
+<wsclient annotated="true" managedBean="QueueTask" operation="queueTask"/>
+</wsproxy>
+<generatedfile>caf\war\ADESPCommonTaskImpl\wsclient\ixtaskmanagement\ws\provider\soap\queuetaskoperations\IXTaskManagementWsProviderSoapQueueTaskOperationsStub.java</generatedfile>
+</webservice>
+</wsclients>
